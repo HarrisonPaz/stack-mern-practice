@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import routes from './routes/index.js';
 
 const app = express();
 
@@ -12,6 +13,6 @@ app.get('/', (req, res) => {
     res.send('API is running...');
 });
 
-// app.use('/api/routeName', require('./routes/routeFile'));
+app.use('/api', routes);
 
 export default app;
