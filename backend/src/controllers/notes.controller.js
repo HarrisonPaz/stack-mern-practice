@@ -4,7 +4,7 @@ import Note from "../models/notes.js";
 const getNotes = async (req, res) => {
     try {
         const notes = await Note.find();
-        res.json(notes);
+        res.json({ notes });
     } catch (error) {
         res.status(500).json({ message: "Server Error" });
     }
@@ -15,7 +15,7 @@ const getNote = async (req, res) => {
     const id = req.params.id;
     try {
         const note = await Note.findById(id);
-        res.json(note);
+        res.json({ note });
     }
     catch (error) {
         res.status(500).json({ message: "Server Error" });
@@ -24,12 +24,12 @@ const getNote = async (req, res) => {
 
 //Crear una nota
 const createNote = async (req, res) => {
-    const { title, content, date, author } = req.body;
+    const { title, content, author, date } = req.body;
     const newNote = new Note({
         title,
         content,
-        date,
         author,
+        date,
     });
     try {
         const savedNote = await newNote.save();
@@ -42,7 +42,7 @@ const createNote = async (req, res) => {
 //Actualizar una nota
 const updateNote = async (req, res) => {
     const id = req.params.id;
-    const { title, content, date, author } = req.body;
+    const { title, content, author, date } = req.body;
     try {
         const updatedNote = await Note.findByIdAndUpdate(id, {
             title,
